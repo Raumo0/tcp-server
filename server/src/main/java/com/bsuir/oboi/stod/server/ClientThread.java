@@ -52,9 +52,6 @@ public class ClientThread extends Thread {
             }
             if (line.startsWith("/quit"))
                 break;
-            for (int i = 0; i < maxClientsCount; i++)
-                if (threads[i] != null)
-                    threads[i].output.println("<" + username + clientSocket.getRemoteSocketAddress() + ">: " + line);
         }
     }
 
