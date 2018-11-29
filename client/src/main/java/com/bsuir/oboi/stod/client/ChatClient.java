@@ -1,5 +1,7 @@
 package com.bsuir.oboi.stod.client;
 
+import com.google.gson.Gson;
+
 import java.io.DataInputStream;
 import java.io.PrintStream;
 import java.io.BufferedReader;
@@ -14,6 +16,7 @@ public class ChatClient implements Runnable  {
     private DataInputStream input = null;
     private BufferedReader inputLine = null;
     private boolean closed = false;
+    private final Gson gson = new Gson();
 
     public ChatClient(int portNumber, String host) {
         printWelcomeMessage(portNumber, host);
@@ -25,8 +28,14 @@ public class ChatClient implements Runnable  {
         if (clientSocket != null && output != null && input != null) {
             try {
                 new Thread(this).start();
-                while (!closed) {
+                if (!closed)
                     output.println(inputLine.readLine().trim());
+                Dto dto;
+                while (!closed) {
+                    dto = new Dto();
+                    dto.setCommand(inputLine.readLine().trim());
+                    dto.setArgument(inputLine.readLine().trim());
+                    output.println(gson.toJson(dto));
                 }
                 closeSocketAndStreams();
             } catch (IOException e) {

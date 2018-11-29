@@ -1,6 +1,7 @@
 package com.bsuir.oboi.stod.server.commands;
 
 import com.bsuir.oboi.stod.server.commands.impl.AllCommand;
+import com.bsuir.oboi.stod.server.commands.impl.EditCommand;
 import com.bsuir.oboi.stod.server.commands.impl.HelpCommand;
 import com.bsuir.oboi.stod.server.commands.impl.IpCommand;
 import com.bsuir.oboi.stod.server.commands.impl.ListCommand;
@@ -11,7 +12,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public enum CommandType {
-    HELP, ALL, NAME, IP, LIST;
+    HELP, ALL, NAME, IP, LIST, EDIT;
 
     private static Map<CommandType, Class> commands;
     static {
@@ -21,6 +22,7 @@ public enum CommandType {
         commands.put(CommandType.NAME, NameCommand.class);
         commands.put(CommandType.IP, IpCommand.class);
         commands.put(CommandType.LIST, ListCommand.class);
+        commands.put(CommandType.EDIT, EditCommand.class);
     }
 
     public Command getCurrentCommand() throws CommandException {

@@ -14,7 +14,7 @@ public class CommandFactory {
     }
 
     public Command defineCommand(String commandName) throws CommandException {
-        CommandType type = CommandType.valueOf(commandName.toUpperCase().substring(1));
+        CommandType type = CommandType.valueOf(commandName.toUpperCase());
         return defineCommand(type);
     }
 
