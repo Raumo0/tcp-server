@@ -20,6 +20,7 @@ public class ClientThread extends Thread {
     private String username;
     private SocketAddress address;
     private Gson gson = new Gson();
+    private boolean quit = false;
 
     public ClientThread(Socket clientSocket, ClientThread[] threads) {
         this.clientSocket = clientSocket;
@@ -43,15 +44,13 @@ public class ClientThread extends Thread {
 
     private void commandCatching(int maxClientsCount, ClientThread[] threads) throws IOException {
         Dto dto;
-        while (true) {
+        while (!quit) {
             output.println("Enter a command and then enter an argument.");
             String line = input.readLine();
             dto = gson.fromJson(line, Dto.class);
             if(isCommandExists(dto.getCommand())) {
                 parseRequest(dto.getCommand(), dto.getArgument());
             }
-            if (line.startsWith("/quit"))
-                break;
         }
     }
 
@@ -136,5 +135,13 @@ public class ClientThread extends Thread {
 
     public void setClientSocket(Socket clientSocket) {
         this.clientSocket = clientSocket;
+    }
+
+    public boolean isQuit() {
+        return quit;
+    }
+
+    public void setQuit(boolean quit) {
+        this.quit = quit;
     }
 }
