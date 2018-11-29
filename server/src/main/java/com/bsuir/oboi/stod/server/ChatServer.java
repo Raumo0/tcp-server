@@ -47,7 +47,7 @@ public class ChatServer {
 
     private void serverOverloadedBehavior() throws IOException {
         PrintStream os = new PrintStream(clientSocket.getOutputStream());
-        os.println("Server too busy. Try later.");
+        os.println("Server is overloaded, please try again or later.");
         os.close();
         clientSocket.close();
     }
@@ -61,7 +61,6 @@ public class ChatServer {
     }
 
     private void printWelcomeMessage(int portNumber) {
-        System.out.println("Usage: java ChatServer <portNumber>\n"
-                        + "Now using port number=" + portNumber);
+        System.out.println("Server now using port number: " + portNumber);
     }
 }

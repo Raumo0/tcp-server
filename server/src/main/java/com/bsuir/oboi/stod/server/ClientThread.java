@@ -49,9 +49,8 @@ public class ClientThread extends Thread {
     private void sendLeavingNotification(int maxClientsCount, ClientThread[] threads) {
         for (int i = 0; i < maxClientsCount; i++)
             if (threads[i] != null && threads[i] != this)
-                threads[i].output.println("*** The user " + name
-                        + " is leaving the chat room !!! ***");
-        output.println("*** Bye " + name + " ***");
+                threads[i].output.println("The user " + name + " is leaving.");
+        output.println("Goodbye " + name + ".");
     }
 
     private void cleanUpCurrentThread(int maxClientsCount, ClientThread[] threads) {
@@ -78,11 +77,11 @@ public class ClientThread extends Thread {
 
     private void sendNewUserEnteredMessage(int maxClientsCount, ClientThread[] threads) {
         output.println("Hello " + name + address
-                + " to our chat room.\nTo leave enter /quit in a new line");
+                + " to the chat room.\nTo leave enter /quit in a new line");
         for (int i = 0; i < maxClientsCount; i++)
             if (threads[i] != null && threads[i] != this)
-                threads[i].output.println("*** A new user " + name + clientSocket.getRemoteSocketAddress()
-                        + " entered the chat room !!! ***");
+                threads[i].output.println("A new user " + name + clientSocket.getRemoteSocketAddress()
+                        + " entered the chat room.");
     }
 
     private void closeSocketAndStreams() throws IOException {

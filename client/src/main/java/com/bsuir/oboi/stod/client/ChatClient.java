@@ -48,22 +48,21 @@ public class ChatClient implements Runnable  {
             output = new PrintStream(clientSocket.getOutputStream());
             input = new DataInputStream(clientSocket.getInputStream());
         } catch (UnknownHostException e) {
-            System.err.println("Don't know about host " + host);
+            System.err.println("Unknown Host: " + host);
         } catch (IOException e) {
-            System.err.println("Couldn't get I/O for the connection to the host "
+            System.err.println("Can't connect to the host: "
                     + host);
         }
     }
 
     private void printWelcomeMessage(int portNumber, String host) {
         System.out
-                .println("Usage: java ChatClient <host> <portNumber>\n"
-                        + "Now using host=" + host + ", portNumber=" + portNumber);
+                .println("Now using host=" + host + ", portNumber=" + portNumber);
     }
 
     public void run() {
         try {
-            keepReadingUntilMessage("*** Bye");
+            keepReadingUntilMessage("Goodbye");
             closed = true;
         } catch (IOException e) {
             System.err.println("IOException:  " + e);
