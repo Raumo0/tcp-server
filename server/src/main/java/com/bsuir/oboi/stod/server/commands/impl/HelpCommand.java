@@ -5,13 +5,18 @@ import com.bsuir.oboi.stod.server.commands.Command;
 import com.bsuir.oboi.stod.server.commands.CommandType;
 import com.bsuir.oboi.stod.server.exceptions.CommandException;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class HelpCommand implements Command {
     @Override
     public void execute(String data, ClientThread currentThread, ClientThread[] AllThreads) {
-        String result = "";
+        Map<String, String> result = new HashMap<>();
         for (CommandType commandType:CommandType.values()) {
             try {
-                result += commandType.getCurrentCommand().getDescription() + "\n";
+                Command command = commandType.getCurrentCommand();
+                if(data.isEmpty() || commandType.getCurrentCommand().getName().equals(data))
+                    result.put(command.getName(), command.getDescription());
             } catch (CommandException e) {
                 e.printStackTrace();
             }
@@ -21,7 +26,7 @@ public class HelpCommand implements Command {
 
     @Override
     public String getDescription() {
-        return getName() + ": Show full list of commands with description.";
+        return "Show full list of commands with description.";
     }
 
     @Override

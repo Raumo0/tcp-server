@@ -22,7 +22,7 @@ public class ListCommand implements Command {
 
     @Override
     public String getDescription() {
-        return getName() + ": Print full list of users.";
+        return "Print full list of users.";
     }
 
     @Override

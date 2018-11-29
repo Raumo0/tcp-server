@@ -11,7 +11,7 @@ public class NameCommand implements Command {
 
     @Override
     public String getDescription() {
-        return getName() + ": Provide send private message to user by name.";
+        return "Provide send private message to user by name.";
     }
 
     @Override

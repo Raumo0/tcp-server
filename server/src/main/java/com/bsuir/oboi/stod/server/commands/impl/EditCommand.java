@@ -8,12 +8,12 @@ public class EditCommand implements Command {
     public void execute(String data, ClientThread currentThread, ClientThread[] AllThreads) {
         String name = data.split(" ",1)[0];
         currentThread.setUsername(name);
-        currentThread.getOutput().println("Your name is changed to: " + currentThread.getName());
+        currentThread.getOutput().println("Your name is changed to: " + currentThread.getUsername());
     }
 
     @Override
     public String getDescription() {
-        return getName() + ": Provide change user name to another one.";
+        return "Provide change user name to another one.";
     }
 
     @Override

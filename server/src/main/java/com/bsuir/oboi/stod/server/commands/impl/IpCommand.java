@@ -11,7 +11,7 @@ public class IpCommand implements Command {
 
     @Override
     public String getDescription() {
-        return getName() + ": Provide send private message to user by IP.";
+        return "Provide send private message to user by IP.";
     }
 
     @Override

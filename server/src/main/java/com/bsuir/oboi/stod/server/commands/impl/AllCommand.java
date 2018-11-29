@@ -11,7 +11,7 @@ public class AllCommand implements Command {
 
     @Override
     public String getDescription() {
-        return getName() + ": Provide send message for all users.";
+        return "Provide send message for all users.";
     }
 
     @Override
