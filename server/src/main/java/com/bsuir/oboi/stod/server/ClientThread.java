@@ -1,5 +1,9 @@
 package com.bsuir.oboi.stod.server;
 
+import com.bsuir.oboi.stod.server.commands.Command;
+import com.bsuir.oboi.stod.server.commands.CommandFactory;
+import com.bsuir.oboi.stod.server.exceptions.CommandException;
+
 import java.io.DataInputStream;
 import java.io.PrintStream;
 import java.io.IOException;
@@ -38,12 +42,33 @@ public class ClientThread extends Thread {
     private void commandCatching(int maxClientsCount, ClientThread[] threads) throws IOException {
         while (true) {
             String line = input.readLine();
+            if(startWithCommand(line)) {
+                parseCommand(line);
+            }
             if (line.startsWith("/quit"))
                 break;
             for (int i = 0; i < maxClientsCount; i++)
                 if (threads[i] != null)
                     threads[i].output.println("<" + name + clientSocket.getRemoteSocketAddress() + ">: " + line);
         }
+    }
+
+    private void parseCommand(String line) {
+        Command command;
+        try {
+            command = CommandFactory.getInstance().defineCommand(getCommandFromLine(line));
+            command.execute("", this, threads);
+        } catch (CommandException | IllegalArgumentException e) {
+            e.printStackTrace();//unknown command message needed
+        }
+    }
+
+    private String getCommandFromLine(String line) {
+        return line.split(" ", 1)[0];
+    }
+
+    private boolean startWithCommand(String line) {
+        return !line.isEmpty() && line.substring(0, 1).equals("-");
     }
 
     private void sendLeavingNotification(int maxClientsCount, ClientThread[] threads) {
@@ -88,5 +113,13 @@ public class ClientThread extends Thread {
         input.close();
         output.close();
         clientSocket.close();
+    }
+
+    public PrintStream getOutput() {
+        return output;
+    }
+
+    public ClientThread[] getThreads() {
+        return threads;
     }
 }
