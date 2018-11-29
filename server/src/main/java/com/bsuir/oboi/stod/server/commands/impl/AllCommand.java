@@ -11,11 +11,11 @@ public class AllCommand implements Command {
 
     @Override
     public String getDescription() {
-        return getName() + " Provide send message for all users.";
+        return getName() + ": Provide send message for all users.";
     }
 
     @Override
     public String getName() {
-        return "-all";
+        return "all";
     }
 }

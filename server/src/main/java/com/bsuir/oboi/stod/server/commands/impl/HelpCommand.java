@@ -21,11 +21,11 @@ public class HelpCommand implements Command {
 
     @Override
     public String getDescription() {
-        return getName() + " Show full list of commands with description.";
+        return getName() + ": Show full list of commands with description.";
     }
 
     @Override
     public String getName() {
-        return "-help";
+        return "help";
     }
 }

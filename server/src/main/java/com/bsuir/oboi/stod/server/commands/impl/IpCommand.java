@@ -11,11 +11,11 @@ public class IpCommand implements Command {
 
     @Override
     public String getDescription() {
-        return getName() + " Provide send private message to user by IP.";
+        return getName() + ": Provide send private message to user by IP.";
     }
 
     @Override
     public String getName() {
-        return "-ip";
+        return "ip";
     }
 }

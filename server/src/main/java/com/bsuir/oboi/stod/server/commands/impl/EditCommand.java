@@ -13,7 +13,7 @@ public class EditCommand implements Command {
 
     @Override
     public String getDescription() {
-        return getName() + " Provide change user name to another one.";
+        return getName() + ": Provide change user name to another one.";
     }
 
     @Override

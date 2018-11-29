@@ -132,4 +132,12 @@ public class ClientThread extends Thread {
     public void setUsername(String username) {
         this.username = username;
     }
+
+    public Socket getClientSocket() {
+        return clientSocket;
+    }
+
+    public void setClientSocket(Socket clientSocket) {
+        this.clientSocket = clientSocket;
+    }
 }
