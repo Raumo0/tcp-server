@@ -9,29 +9,22 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 public class ChatClient implements Runnable  {
-    private static Socket clientSocket = null;
-    private static PrintStream output = null;
-    private static DataInputStream input = null;
-    private static BufferedReader inputLine = null;
-    private static boolean closed = false;
+    private Socket clientSocket = null;
+    private PrintStream output = null;
+    private DataInputStream input = null;
+    private BufferedReader inputLine = null;
+    private boolean closed = false;
 
-    public static void main(String[] args) {
-        int portNumber = 2222;
-        String host = "localhost";
-        if (args.length < 2) {
-            printWelcomeMessage(portNumber, host);
-        } else {
-            host = args[0];
-            portNumber = Integer.valueOf(args[1]).intValue();
-        }
+    public ChatClient(int portNumber, String host) {
+        printWelcomeMessage(portNumber, host);
         initializeSocketAndStreams(portNumber, host);
         workWithSocket();
     }
 
-    private static void workWithSocket() {
+    private void workWithSocket() {
         if (clientSocket != null && output != null && input != null) {
             try {
-                new Thread(new ChatClient()).start();
+                new Thread(this).start();
                 while (!closed) {
                     output.println(inputLine.readLine().trim());
                 }
@@ -42,13 +35,13 @@ public class ChatClient implements Runnable  {
         }
     }
 
-    private static void closeSocketAndStreams() throws IOException {
+    private void closeSocketAndStreams() throws IOException {
         output.close();
         input.close();
         clientSocket.close();
     }
 
-    private static void initializeSocketAndStreams(int portNumber, String host) {
+    private void initializeSocketAndStreams(int portNumber, String host) {
         try {
             clientSocket = new Socket(host, portNumber);
             inputLine = new BufferedReader(new InputStreamReader(System.in));
@@ -62,7 +55,7 @@ public class ChatClient implements Runnable  {
         }
     }
 
-    private static void printWelcomeMessage(int portNumber, String host) {
+    private void printWelcomeMessage(int portNumber, String host) {
         System.out
                 .println("Usage: java ChatClient <host> <portNumber>\n"
                         + "Now using host=" + host + ", portNumber=" + portNumber);
