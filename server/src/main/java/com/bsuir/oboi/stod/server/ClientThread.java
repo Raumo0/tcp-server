@@ -30,11 +30,11 @@ public class ClientThread extends Thread {
             os = new PrintStream(clientSocket.getOutputStream());
             os.println("Enter your name.");
             String name = is.readLine().trim();
-            os.println("Hello " + name
+            os.println("Hello " + name + clientSocket.getRemoteSocketAddress()
                     + " to our chat room.\nTo leave enter /quit in a new line");
             for (int i = 0; i < maxClientsCount; i++) {
                 if (threads[i] != null && threads[i] != this) {
-                    threads[i].os.println("*** A new user " + name
+                    threads[i].os.println("*** A new user " + name + clientSocket.getRemoteSocketAddress()
                             + " entered the chat room !!! ***");
                 }
             }
@@ -45,7 +45,7 @@ public class ClientThread extends Thread {
                 }
                 for (int i = 0; i < maxClientsCount; i++) {
                     if (threads[i] != null) {
-                        threads[i].os.println("<" + name + ">: " + line);
+                        threads[i].os.println("<" + name + clientSocket.getRemoteSocketAddress() + ">: " + line);
                     }
                 }
             }
